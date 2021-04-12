@@ -25,6 +25,7 @@ class RestaurantServiceTest {
         restaurant.addToMenu("Vegetable lasagne", 269);
     }
 
+    //Test Case: Search for Existing Restaurant
     @Test
     public void searching_for_existing_restaurant_should_return_expected_restaurant_object() throws restaurantNotFoundException {
 

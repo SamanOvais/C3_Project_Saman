@@ -24,24 +24,22 @@ class RestaurantTest {
         restaurant.addToMenu("Sweet corn soup",119);
         restaurant.addToMenu("Vegetable lasagne", 269);
     }
-
+    //Test Case: check if Restaurant is Open
     @Test
     public void is_restaurant_open_should_return_true_if_time_is_between_opening_and_closing_time(){
 
         LocalTime timeBetweenOpeningAndClosingTime = LocalTime.parse("11:00:00");
         Restaurant spiedRestaurant = Mockito.spy(restaurant);
         Mockito.when(spiedRestaurant.getCurrentTime()).thenReturn(timeBetweenOpeningAndClosingTime);
-
         assertTrue(spiedRestaurant.isRestaurantOpen());
     }
-
+    //Test Case: check if Restaurant is Close
     @Test
     public void is_restaurant_open_should_return_false_if_time_is_outside_opening_and_closing_time(){
 
         LocalTime timeAfterClosingTime = LocalTime.parse("23:00:00");
         Restaurant spiedRestaurant = Mockito.spy(restaurant);
         Mockito.when(spiedRestaurant.getCurrentTime()).thenReturn(timeAfterClosingTime);
-
         assertFalse(spiedRestaurant.isRestaurantOpen());
     }
 
@@ -51,12 +49,14 @@ class RestaurantTest {
         restaurant.addToMenu("Sizzler",319);
         assertEquals(initialMenuSize+1,restaurant.getMenu().size());
     }
+
     @Test
     public void removing_item_from_menu_should_decrease_menu_size_by_1() throws itemNotFoundException {
         int initialMenuSize = restaurant.getMenu().size();
         restaurant.removeFromMenu("Vegetable lasagne");
         assertEquals(initialMenuSize-1,restaurant.getMenu().size());
     }
+
     @Test
     public void removing_item_that_does_not_exist_should_throw_exception() {
         assertThrows(itemNotFoundException.class,
@@ -65,7 +65,6 @@ class RestaurantTest {
 
     @Test
     public void order_value_should_be_380_when_SweetCornSoup_and_Vegetable_lasagne_are_ordered() throws restaurantNotFoundException {
-
         List<String> orderedItemNames = Arrays.asList("Sweet corn soup", "Vegetable lasagne");
         int totalOrderValue = restaurant.getOrderValue(orderedItemNames);
         assertThat(totalOrderValue, equalTo(388));
